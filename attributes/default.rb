@@ -17,3 +17,13 @@
 
 default['sslmate']['account_id'] = nil
 default['sslmate']['account_password'] = nil
+
+default['sslmate']['install_type'] = 'package' # package or source
+case node['platform_family']
+when /debian/
+  default['sslmate']['install_depends'] = %w(make libterm-readkey-perl liburi-perl libjson-pp-perl)
+when /rhel|fedora/
+  default['sslmate']['install_depends'] = %w(make perl-URI perl-TermReadKey perl-JSON-PP perl-Digest-SHA perl-version)
+end
+default['sslmate']['url'] = 'https://packages.sslmate.com/other/sslmate-latest.tar.gz'
+

@@ -37,3 +37,9 @@ suites:
   run_list:
   - recipe[sslmate]
   attributes:
+- name: source
+  run_list:
+  - recipe[sslmate]
+  attributes:
+    sslmate:
+      install_type: source

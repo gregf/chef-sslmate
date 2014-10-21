@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: sslmate
-# Recipe:: default
+# Recipe:: _install_package
 #
 # Copyright 2014, Greg Fitzgerald
 #
@@ -17,11 +17,13 @@
 # limitations under the License.
 #
 
-include_recipe "sslmate::_install_#{node['sslmate']['install_type']}"
-
-template '/root/.sslmate' do
-  source 'sslmate.erb'
-  owner 'root'
-  group 'root'
-  mode '0600'
+case node['platform_family']
+when /debian/
+  include_recipe 'sslmate::_debian'
+when /rhel|fedora/
+  include_recipe 'sslmate::_rhel'
+else
+  Chef::Log.warn 'Your platform is currently not have a package, please switch install_type to source.'
 end
+
+package 'sslmate'
