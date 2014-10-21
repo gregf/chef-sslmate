@@ -9,6 +9,7 @@ name 'sslmate'
 recipe 'default', 'Installs sslmate'
 
 depends 'apt'
+depends 'ubuntu'
 depends 'yum'
 
 %w(debian ubuntu centos).each do |os|

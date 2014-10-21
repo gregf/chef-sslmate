@@ -20,7 +20,7 @@
 case node['platform_family']
 when /debian/
   include_recipe 'sslmate::_debian'
-when /rhel/
+when /rhel|fedora/
   include_recipe 'sslmate::_rhel'
 else
   Chef::Log.warn 'Your platform is currently not support by this cookbook.'
