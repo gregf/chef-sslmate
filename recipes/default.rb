@@ -27,3 +27,10 @@ else
 end
 
 package 'sslmate'
+
+template '/root/.sslmate' do
+  source 'sslmate.erb'
+  owner 'root'
+  group 'root'
+  mode '0600'
+end
