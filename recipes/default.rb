@@ -16,3 +16,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+case node['platform_family']
+when /debian/
+  include_recipe 'sslmate::_debian'
+when /rhel/
+  include_recipe 'sslmate::_rhel'
+else
+  Chef::Log.warn 'Your platform is currently not support by this cookbook.'
+end
+
+package 'sslmate'

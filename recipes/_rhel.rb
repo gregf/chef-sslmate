@@ -1,6 +1,8 @@
 #
-# Copyright:: Copyright (c) 2014, Greg Fitzgerald
-# License:: Apache License, Version 2.0
+# Cookbook Name:: sslmate
+# Recipe:: _rhel
+#
+# Copyright 2014, Greg Fitzgerald
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,3 +16,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+yum_repository 'SSLMate' do
+  description 'SSLMate repository'
+  baseurl "http://packages.sslmate.com/#{node['platform']}/$releasever/main/$basearch"
+  gpgkey 'https://sslmate.com/yum/centos/RPM-GPG-KEY-SSLMate'
+  action :create
+end
