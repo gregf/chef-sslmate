@@ -2,21 +2,11 @@ require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
 require 'foodcritic'
 require 'kitchen'
-require 'stove/rake_task'
-
-# Cookbook Releases
-Stove::RakeTask.new do |stove|
-  stove.git = true
-  stove.jira = false
-  stove.changelog = false
-  stove.bump = false
-  stove.dev = false
-end
 
 # Style tests. Rubocop and Foodcritic
 namespace :style do
   desc 'Run Ruby style checks'
-  Rubocop::RakeTask.new(:ruby)
+  RuboCop::RakeTask.new(:ruby)
 
   desc 'Run Chef style checks'
   FoodCritic::Rake::LintTask.new(:chef) do |t|
@@ -31,7 +21,7 @@ desc 'Run all style checks'
 task style: ['style:chef', 'style:ruby']
 
 # Rspec and ChefSpec
-desc "Run ChefSpec examples"
+desc 'Run ChefSpec examples'
 RSpec::Core::RakeTask.new(:spec)
 
 # Integration tests. Kitchen.ci
@@ -46,7 +36,7 @@ namespace :integration do
 end
 
 desc 'Run all tests on Travis'
-task travis: ['style', 'spec']
+task travis: %w(style spec)
 
 # Default
 task default: ['style', 'spec', 'integration:digitalocean']
